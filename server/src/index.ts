@@ -37,7 +37,7 @@ app.use("/auth", authRouter);
 app.use("/counter", counterRouter);
 
 app.get("/health", (req, res) => {
-  res.json({ ok: true });
+  res.json({ ok: true, timestamp: new Date().toISOString() });
 });
 
 app.get("/me", (req, res) => {

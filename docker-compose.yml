@@ -1,18 +1,20 @@
 services:
   frontend:
-    build: .
+    image: ${DOCKER_USERNAME}/counter-frontend:latest
     ports:
       - "80:80"
     depends_on:
       - server
 
   server:
-    build: ./server
-    env_file: ./server/.env
+    image: ${DOCKER_USERNAME}/counter-backend:latest
     environment:
       - CLIENT_URL=http://localhost
       - DB_HOST=postgres
       - REDIS_URL=redis://redis:6379
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - JWT_SECRET=${JWT_SECRET}
     depends_on:
       - postgres
       - redis
